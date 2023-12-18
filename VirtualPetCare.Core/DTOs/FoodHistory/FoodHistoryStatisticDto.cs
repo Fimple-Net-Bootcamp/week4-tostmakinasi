@@ -9,6 +9,6 @@ namespace VirtualPetCare.Core.DTOs.FoodHistory
     public class FoodHistoryStatisticDto
     {
         public string FoodName { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 }

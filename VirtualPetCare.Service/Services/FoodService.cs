@@ -34,16 +34,17 @@ namespace VirtualPetCare.Service.Services
         }
 
         /// <inheritdoc/>
-        public async Task FeedPetById(int petId, FoodFeedingDto fooddto)
+        public async Task FeedPetById(int petId, FoodFeedingDto foodInfo)
         {
             _unitOfWork.BeginTransactionAsync();
 
-            var food = await _repository.GetByIdAsync(fooddto.FoodId);
+            var food = await _repository.GetByIdAsync(foodInfo.FoodId);
 
-            var foodDto = _mapper.Map<FoodDto>(fooddto);
+            var foodDto = _mapper.Map<FoodDto>(food);
 
             await _healthService.ApplyFeedToHealthAsync(petId, foodDto);
 
+            food.FoodHistories = food.FoodHistories ?? new List<FoodHistory>();
             food.FoodHistories.Add(new()
             {
                 FoodId = food.Id,
