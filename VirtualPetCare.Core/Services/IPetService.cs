@@ -43,6 +43,13 @@ namespace VirtualPetCare.Core.Services
         /// </summary>
         /// <param name="ownerId">ID of the owner whose pets are to be retrieved.</param>
         Task<IEnumerable<PetListDto>> GetByOwnerIdAsync(int ownerId);
+
+        /// <summary>
+        /// Gets the statistics for a specific pet, including activity, health, and feeding information.
+        /// </summary>
+        /// <param name="petId">The unique identifier of the pet.</param>
+        /// <returns>A task that represents the asynchronous operation and contains the pet statistics DTO.</returns>
+        Task<PetStatisticsDto> GetPetStatisticsAsync(int petId);
     }
 
 }

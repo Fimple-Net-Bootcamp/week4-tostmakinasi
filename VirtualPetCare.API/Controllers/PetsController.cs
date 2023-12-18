@@ -35,6 +35,15 @@ namespace VirtualPetCare.API.Controllers
             return Ok(pet);
         }
 
+        [HttpGet("statistics/{petId}")]
+        [ActionName(nameof(GetById))]
+        public async Task<IActionResult> GetStatisticById(int petId)
+        {
+            var pet = await _petService.GetPetStatisticsAsync(petId);
+
+            return Ok(pet);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] PetCreateDto entity)
         {
