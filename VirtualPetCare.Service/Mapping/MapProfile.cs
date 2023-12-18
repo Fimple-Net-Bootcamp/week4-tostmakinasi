@@ -25,6 +25,9 @@ namespace VirtualPetCare.Service.Mapping
             CreateMap<User, UserListDto>();
             CreateMap<UserCreateDto, User>().ReverseMap();
             CreateMap<User, UserPetDetailDto>();
+            CreateMap<User, UserStatisticDto>()
+                .ForMember(x => x.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
+
 
             //Health
             CreateMap<Health, HealthDto>();
@@ -46,11 +49,13 @@ namespace VirtualPetCare.Service.Mapping
 
             //Food
             CreateMap<Food, FoodDto>();
+            CreateMap<FoodFeedingDto, Food>()
+                .ForMember(x=> x.Id, opt=> opt.MapFrom(src=> src.FoodId));
 
             //FoodHistory
             CreateMap<FoodHistory,FoodHistoryStatisticDto>()
                 .ForMember(x=> x.FoodName, opt=> opt.MapFrom(src => src.Food.Name))
-                .ForMember(x=> x.Date, opt=> opt.MapFrom(src=> src.CreatedDate.Date));
+                .ForMember(x=> x.Date, opt=> opt.MapFrom(src=> src.CreatedDate.ToShortDateString()));
         }
 
         

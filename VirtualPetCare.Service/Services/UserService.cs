@@ -20,14 +20,12 @@ namespace VirtualPetCare.Service.Services
         private readonly IUserRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IPetService _petService;
 
-        public UserService(IUnitOfWork unitOfWork, IUserRepository repository, IMapper mapper, IPetService petService)
+        public UserService(IUnitOfWork unitOfWork, IUserRepository repository, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _repository = repository;
             _mapper = mapper;
-            _petService = petService;
         }
 
         /// <inheritdoc/>
@@ -66,6 +64,19 @@ namespace VirtualPetCare.Service.Services
                 throw new NotFoundException($"User({id}) not found.");
 
             var userDto = _mapper.Map<UserDto>(user);
+
+            return userDto;
+        }
+
+        /// <inheritdoc/>
+        public async Task<UserStatisticDto> GetUserStatisticsAsync(int id)
+        {
+            var user = await _repository.GetByIdWithRelationsAndSubRelations(id);
+
+            if (user == null)
+                throw new NotFoundException($"User({id}) not found.");
+
+            var userDto = _mapper.Map<UserStatisticDto>(user);
 
             return userDto;
         }

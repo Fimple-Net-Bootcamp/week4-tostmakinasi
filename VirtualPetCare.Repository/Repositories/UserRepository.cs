@@ -16,6 +16,25 @@ namespace VirtualPetCare.Repository.Repositories
         {
         }
 
+        public async Task<User> GetByIdWithRelationsAndSubRelations(int id)
+        {
+            var user = await GetAll()
+                .Include(x => x.Pets)
+                    .ThenInclude(x => x.Health)
+                .Include(x => x.Pets)
+                    .ThenInclude(x => x.PetSpecies)
+                .Include(x => x.Pets).ThenInclude(x => x.FoodHistories)
+                        .ThenInclude(x => x.Food)
+                .Include(x => x.Pets)
+                .ThenInclude(x => x.FoodHistories)
+                        .ThenInclude(x => x.Food)
+                .Include(x => x.Pets)
+                .ThenInclude(x => x.ActivityHistories)
+                        .ThenInclude(x => x.Activity)
+                .FirstOrDefaultAsync(X => X.Id == id);
+            return user;
+        }
+
         async Task<User> IUserRepository.GetByIdWithOwnershipsAsync(int id)
         {
             var user = await _context.Users.Include(x => x.Pets).ThenInclude(x=> x.Health).FirstOrDefaultAsync(x=> x.Id == id);

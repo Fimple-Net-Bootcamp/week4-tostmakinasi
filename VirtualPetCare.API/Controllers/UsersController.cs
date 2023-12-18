@@ -21,17 +21,25 @@ namespace VirtualPetCare.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var dataList = await _userService.GetAllAsync();
+            var userList = await _userService.GetAllAsync();
 
-            return Ok(dataList);
+            return Ok(userList);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var data = await _userService.GetByIdAsync(id);
+            var user = await _userService.GetByIdAsync(id);
 
-            return Ok(data);
+            return Ok(user);
+        }
+
+        [HttpGet("statistics/{id}")]
+        public async Task<IActionResult> GetStatisticById(int id)
+        {
+            var user = await _userService.GetUserStatisticsAsync(id);
+
+            return Ok(user);
         }
 
         [HttpGet("{id}/pets")]
@@ -45,9 +53,9 @@ namespace VirtualPetCare.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] UserCreateDto dto)
         {
-            var userDto = await _userService.CreateAsync(dto);
+            var user = await _userService.CreateAsync(dto);
 
-            return CreatedAtAction(nameof(GetById), new { Id = userDto.Id }, userDto);
+            return CreatedAtAction(nameof(GetById), new { Id = user.Id }, user);
         }
 
         [HttpPut("{id}")]

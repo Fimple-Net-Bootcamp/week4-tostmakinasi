@@ -15,5 +15,7 @@ namespace VirtualPetCare.Core.Repositories
         /// <param name="id">The ID of the entity.</param>
         /// <returns>The entity with the specified ID.</returns>
         Task<User> GetByIdWithOwnershipsAsync(int id);
+
+        Task<User> GetByIdWithRelationsAndSubRelations(int id);
     }
 }

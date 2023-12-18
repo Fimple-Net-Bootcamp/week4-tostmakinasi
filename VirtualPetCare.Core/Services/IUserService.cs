@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VirtualPetCare.Core.DTOs.Pet;
 using VirtualPetCare.Core.DTOs.User;
 
 namespace VirtualPetCare.Core.Services
@@ -41,6 +42,13 @@ namespace VirtualPetCare.Core.Services
         /// </summary>
         /// <param name="id">ID of the user to remove.</param>
         Task RemoveAsync(int id);
+
+        /// <summary>
+        /// Gets the statistics for a specific user, including information about their pets.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user.</param>
+        /// <returns>A task that represents the asynchronous operation and contains the user statistics DTO.</returns>
+        Task<UserStatisticDto> GetUserStatisticsAsync(int id);
     }
 
 }
