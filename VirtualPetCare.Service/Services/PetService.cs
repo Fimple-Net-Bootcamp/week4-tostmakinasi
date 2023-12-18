@@ -107,14 +107,7 @@ namespace VirtualPetCare.Service.Services
 
         public async Task<PetStatisticsDto> GetPetStatisticsAsync(int petId)
         {
-            var pet = await _repository.GetAll()
-                                       .Include(x => x.Health)
-                                       .Include(x=> x.PetSpecies)
-                                       .Include(x => x.ActivityHistories)
-                                       .ThenInclude(x => x.Activity)
-                                       .Include(x => x.FoodHistories)
-                                       .ThenInclude(x => x.Food)
-                                       .FirstOrDefaultAsync(x => x.Id == petId);
+            var pet = await _repository.GetByIdWithAllRelationsAndSubRelations(petId);
 
             if (pet == null)
                 throw new NotFoundException($"Pet({petId}) not found.");

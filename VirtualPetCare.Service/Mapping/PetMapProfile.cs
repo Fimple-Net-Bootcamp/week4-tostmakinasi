@@ -32,6 +32,11 @@ namespace VirtualPetCare.Service.Mapping
                 .ForMember(x => x.Age, opt => opt.MapFrom(src => CalculateAge(src.CreatedDate)))
                 .ForMember(x => x.Name, opt => opt.MapFrom(src => src.PetName))
                 .ForMember(x => x.Species, opt => opt.MapFrom(src => src.PetSpecies.Species));
+
+            CreateMap<Pet, PetStatisticsForUserDto>()
+                .ForMember(x => x.Age, opt => opt.MapFrom(src => CalculateAge(src.CreatedDate)))
+                .ForMember(x => x.Name, opt => opt.MapFrom(src => src.PetName))
+                .ForMember(x => x.Species, opt => opt.MapFrom(src => src.PetSpecies.Species));
         }
         private static string CalculateAge(DateTime createdDate)
         {

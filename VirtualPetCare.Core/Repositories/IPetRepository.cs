@@ -13,6 +13,6 @@ namespace VirtualPetCare.Core.Repositories
     {
         Task<Pet> GetByIdWithOwnerAsync(int id);
         Task<IEnumerable<Pet>> GetAllWithRelation();
-        
+        Task<Pet> GetByIdWithAllRelationsAndSubRelations(int id);
     }
 }

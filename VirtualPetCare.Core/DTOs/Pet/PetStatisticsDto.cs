@@ -11,7 +11,6 @@ namespace VirtualPetCare.Core.DTOs.Pet
 {
     public class PetStatisticsDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Species { get; set; }
         public string Age { get; set; }
