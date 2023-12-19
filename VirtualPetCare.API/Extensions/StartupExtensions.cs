@@ -21,6 +21,7 @@ namespace VirtualPetCare.API.Extensions
             services.AddScoped<IHealthService, HealthService>();
             services.AddScoped<IActivityService, ActivityService>();
             services.AddScoped<IFoodService, FoodService>();
+            services.AddScoped<ITrainingService, TrainingService>();
 
             return services;
         }

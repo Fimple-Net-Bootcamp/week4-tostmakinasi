@@ -24,6 +24,7 @@ namespace VirtualPetCare.Service.Services
             _petRepository = petRepository;
         }
 
+        /// <inheritdoc/>
         public async Task<List<ActivityForSpeciesDto>> ActivitiesForPet(int petId)
         {
             var activities = await _petRepository.GetAll().Where(x => x.Id == petId).Include(x => x.PetSpecies).ThenInclude(x => x.Activities).SelectMany(x => x.PetSpecies.Activities).ToListAsync();
@@ -33,6 +34,7 @@ namespace VirtualPetCare.Service.Services
             return activityDtos;
         }
 
+        /// <inheritdoc/>
         public async Task<ActivityDto> CreateAsync(ActivityCreateDto entity)
         {
             var activities = _mapper.Map<Activity>(entity);

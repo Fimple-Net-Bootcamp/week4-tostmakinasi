@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace VirtualPetCare.Service.Validations
+namespace VirtualPetCare.Service.Responses
 {
     public class ValidationResponse
     {

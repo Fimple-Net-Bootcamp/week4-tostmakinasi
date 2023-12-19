@@ -16,6 +16,12 @@ namespace VirtualPetCare.Core.Repositories
         /// <returns>The entity with the specified ID.</returns>
         Task<User> GetByIdWithOwnershipsAsync(int id);
 
+        /// <summary>
+        /// Gets a user by its ID with all related entities and their sub-relations.
+        /// </summary>
+        /// <param name="id">The ID of the user.</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the asynchronous operation, containing the user with all related entities and sub-relations.</returns>
         Task<User> GetByIdWithRelationsAndSubRelations(int id);
+
     }
 }

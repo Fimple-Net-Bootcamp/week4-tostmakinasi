@@ -21,6 +21,8 @@ namespace VirtualPetCare.Repository.Context
         public DbSet<Food> Foods { get; set; }
         public DbSet<ActivityHistory> ActivityHistories { get; set; }
         public DbSet<FoodHistory> FoodHistories { get; set; }
+        public DbSet<Training> Training { get; set; }
+        public DbSet<TrainingHistory> TrainingHistories { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

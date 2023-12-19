@@ -31,6 +31,9 @@ namespace VirtualPetCare.Repository.Repositories
                 .Include(x => x.Pets)
                 .ThenInclude(x => x.ActivityHistories)
                         .ThenInclude(x => x.Activity)
+                 .Include(x => x.Pets)
+                 .ThenInclude(x => x.TrainingHistories)
+                        .ThenInclude(x => x.Training)
                 .FirstOrDefaultAsync(X => X.Id == id);
             return user;
         }

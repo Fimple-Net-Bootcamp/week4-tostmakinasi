@@ -43,7 +43,10 @@ namespace VirtualPetCare.Repository.Configurations
                    .HasForeignKey(fh => fh.PetId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-           
+            builder.HasMany(p => p.TrainingHistories)
+             .WithOne(th => th.Pet)
+             .HasForeignKey(th => th.PetId)
+             .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

@@ -105,6 +105,7 @@ namespace VirtualPetCare.Service.Services
             return petDtos;
         }
 
+        /// <inheritdoc/>
         public async Task<PetStatisticsDto> GetPetStatisticsAsync(int petId)
         {
             var pet = await _repository.GetByIdWithAllRelationsAndSubRelations(petId);
