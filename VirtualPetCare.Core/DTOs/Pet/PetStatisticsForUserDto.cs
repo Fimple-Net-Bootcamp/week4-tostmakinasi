@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using VirtualPetCare.Core.DTOs.ActivityHisroty;
 using VirtualPetCare.Core.DTOs.FoodHistory;
 using VirtualPetCare.Core.DTOs.Health;
+using VirtualPetCare.Core.DTOs.TrainingHistory;
 
 namespace VirtualPetCare.Core.DTOs.Pet
 {
@@ -19,5 +20,7 @@ namespace VirtualPetCare.Core.DTOs.Pet
         public HealthStatisticDto Health { get; set; }
         public List<FoodHistoryStatisticDto> FoodHistories { get; set; }
         public List<ActivityHistoryStatisticDto> ActivityHistories { get; set; }
+
+        public List<TrainingHistoryForPetStatisticDto> TrainingHistories { get; set; }
     }
 }

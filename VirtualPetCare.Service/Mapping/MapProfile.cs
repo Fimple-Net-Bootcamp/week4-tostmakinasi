@@ -65,6 +65,9 @@ namespace VirtualPetCare.Service.Mapping
             CreateMap<TrainingHistory, TrainingHistoryForPetDto>()
                 .ForMember(x => x.Date, opt => opt.MapFrom(src => src.Date.ToString("MM/dd/yyyy HH:mm")))
                 .ForMember(x=> x.Name, opt=> opt.MapFrom(src=> src.Training.Name));
+            CreateMap<TrainingHistory, TrainingHistoryForPetStatisticDto>()
+                .ForMember(x => x.Date, opt => opt.MapFrom(src => src.Date.ToString("MM/dd/yyyy HH:mm")))
+                .ForMember(x => x.Name, opt => opt.MapFrom(src => src.Training.Name));
         }
 
         
