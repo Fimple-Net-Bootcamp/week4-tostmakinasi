@@ -11,6 +11,7 @@ using VirtualPetCare.Core.DTOs.FoodHistory;
 using VirtualPetCare.Core.DTOs.Health;
 using VirtualPetCare.Core.DTOs.Pet;
 using VirtualPetCare.Core.DTOs.PetSpecies;
+using VirtualPetCare.Core.DTOs.SocialInteraction;
 using VirtualPetCare.Core.DTOs.Training;
 using VirtualPetCare.Core.DTOs.TrainingHistory;
 using VirtualPetCare.Core.DTOs.User;
@@ -68,6 +69,22 @@ namespace VirtualPetCare.Service.Mapping
             CreateMap<TrainingHistory, TrainingHistoryForPetStatisticDto>()
                 .ForMember(x => x.Date, opt => opt.MapFrom(src => src.Date.ToString("MM/dd/yyyy HH:mm")))
                 .ForMember(x => x.Name, opt => opt.MapFrom(src => src.Training.Name));
+
+            //SocialInteraction
+            CreateMap<SocialInteractionCreateDto, SocialInteraction>()
+          .ForMember(dest => dest.Participants, opt => opt.MapFrom(src => src.PaticipantPetIds.Select(petId => new SocialInteractionParticipant { PetId = petId })));
+            CreateMap<SocialInteractionParticipant, SocialInteractionDto>()
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.SocialInteraction.CreatedDate.ToString("MM/dd/yyyy HH:mm")))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.SocialInteraction.Title))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.SocialInteraction.Description));
+
+
+            // SocialInteractionParticipant'tan gelen liste yoksa oluşturmak için
+            CreateMap<List<int>, List<SocialInteractionParticipant>>()
+                .ConvertUsing(src => src.Select(petId => new SocialInteractionParticipant { PetId = petId }).ToList());
+
+
+
         }
 
         

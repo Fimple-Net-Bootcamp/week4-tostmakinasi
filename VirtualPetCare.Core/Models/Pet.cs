@@ -23,5 +23,7 @@ namespace VirtualPetCare.Core.Models
         public List<ActivityHistory>? ActivityHistories { get; set; }
         public List<FoodHistory>? FoodHistories { get; set; }
         public List<TrainingHistory>? TrainingHistories { get; set; }
+
+        public List<SocialInteractionParticipant>? SocialInteractionParticipants { get; set; }
     }
 }
