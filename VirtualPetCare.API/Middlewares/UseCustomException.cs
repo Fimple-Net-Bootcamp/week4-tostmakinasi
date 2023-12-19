@@ -7,7 +7,7 @@ namespace VirtualPetCare.API.Middlewares
 {
     public static class UseCustomExceptionHadler
     {
-        public static void UseCustomException(this IApplicationBuilder app)
+        public static IApplicationBuilder UseCustomException(this IApplicationBuilder app)
         {
             app.UseExceptionHandler(config =>
             {
@@ -32,6 +32,7 @@ namespace VirtualPetCare.API.Middlewares
 
                 });
             });
+            return app;
         }
 
     }
