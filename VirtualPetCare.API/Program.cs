@@ -42,11 +42,11 @@ builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddLogging(opt =>
-//{
-//    opt.ClearProviders();
-//    opt.AddNLog();
-//});
+builder.Services.AddLogging(opt =>
+{
+    opt.ClearProviders();
+    opt.AddNLog();
+});
 
 
 var app = builder.Build();
