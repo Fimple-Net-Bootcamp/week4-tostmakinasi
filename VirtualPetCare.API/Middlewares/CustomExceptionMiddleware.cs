@@ -8,10 +8,11 @@ namespace VirtualPetCare.API.Middlewares
     public class CustomExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-
-        public CustomExceptionMiddleware(RequestDelegate next)
+        private readonly ILogger _logger;
+        public CustomExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
         {
             _next = next;
+            _logger = loggerFactory.CreateLogger("VirtualPetCare.API");
         }
 
         public async Task Invoke(HttpContext context)
@@ -31,6 +32,8 @@ namespace VirtualPetCare.API.Middlewares
                     NotFoundException => HttpStatusCode.NotFound,
                     _ => HttpStatusCode.InternalServerError
                 };
+
+                _logger.LogError(ex.Message);
 
                 context.Response.StatusCode = (int)statusCode;
 

@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NLog.Extensions.Logging;
 using System.Reflection;
 using VirtualPetCare.API.Extensions;
 using VirtualPetCare.API.Filters;
@@ -36,6 +37,13 @@ builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddLogging(opt =>
+{
+    opt.ClearProviders();
+    opt.AddNLog();
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -47,7 +55,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCustomException();
+//app.UseCustomException();
+
+app.UseMiddleware<CustomExceptionMiddleware>();
 
 app.UseAuthorization();
 
