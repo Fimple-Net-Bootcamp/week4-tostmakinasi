@@ -15,17 +15,22 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute())).AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<UserCreatDtoValidation>());
+
+
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSql"));
-    
+});
+
+builder.Services.AddDbContext<LogDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlCon"));
     
 });
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
-
 });
 
 builder.Services.AddScopedWithExtension();
@@ -37,11 +42,11 @@ builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddLogging(opt =>
-{
-    opt.ClearProviders();
-    opt.AddNLog();
-});
+//builder.Services.AddLogging(opt =>
+//{
+//    opt.ClearProviders();
+//    opt.AddNLog();
+//});
 
 
 var app = builder.Build();
@@ -54,8 +59,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-//app.UseCustomException();
 
 app.UseMiddleware<CustomExceptionMiddleware>();
 
