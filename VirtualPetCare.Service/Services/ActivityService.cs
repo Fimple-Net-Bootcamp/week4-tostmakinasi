@@ -11,6 +11,7 @@ using VirtualPetCare.Core.Models;
 using VirtualPetCare.Core.Repositories;
 using VirtualPetCare.Core.Services;
 using VirtualPetCare.Core.UnitOfWorks;
+using VirtualPetCare.Service.Exceptions;
 
 namespace VirtualPetCare.Service.Services
 {
@@ -27,7 +28,14 @@ namespace VirtualPetCare.Service.Services
         /// <inheritdoc/>
         public async Task<List<ActivityForSpeciesDto>> ActivitiesForPet(int petId)
         {
-            var activities = await _petRepository.GetAll().Where(x => x.Id == petId).Include(x => x.PetSpecies).ThenInclude(x => x.Activities).SelectMany(x => x.PetSpecies.Activities).ToListAsync();
+            var pet = await _petRepository.GetByIdAsync(petId);
+            if (pet == null)
+                throw new NotFoundException($"Pet({petId}) not found");
+
+            var activities = await _petRepository.GetAll().Include(x => x.PetSpecies).ThenInclude(x => x.Activities).SelectMany(x => x.PetSpecies.Activities).ToListAsync();
+
+            if (!activities.Any())
+                throw new NotFoundException($"Pet({petId}) activities not found");
 
             var activityDtos = _mapper.Map<List<ActivityForSpeciesDto>>(activities);
 
